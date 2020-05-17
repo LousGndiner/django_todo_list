@@ -23,8 +23,7 @@ urlpatterns = [
     path('about/', todo_views.about, name='about'),
     path('contact/', todo_views.contact, name='contact'),
     path('listings/', todo_views.listings, name='listings'),
-    path('delete/<list_id>', todo_views.delete, name='delete'),
-    path('strike/<list_id>', todo_views.strike, name='strike'),
-    path('unstrike/<list_id>', todo_views.unstrike, name='unstrike'),
-    path('edit/<list_id>', todo_views.edit, name='edit'),
+    path('delete/<alumniModel_id>', todo_views.delete, name='delete'),
+    path('view_alumni/<alumniModel_id>', todo_views.view_alumni, name='view_alumni'),
+    path('edit/<alumniModel_id>', todo_views.edit, name='edit'),
 ]

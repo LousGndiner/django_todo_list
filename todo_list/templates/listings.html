@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 
-{% url 'listings' %}
-
-{% block content %}
+{% block content %}<!-- Temporary -->
 	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
-		<input class="form-control mr-sm-2" type="text" name="item">
+		<input class="form-control mr-sm-2" type="text" name="lastName" placeholder="Input Last Name" required>
+		<input class="form-control mr-sm-2" type="text" name="firstName" placeholder="Input First Name" required>
+		<input class="form-control mr-sm-2" type="text" name="gender" placeholder="Input Alumni Gender" required>
+		<input class="form-control mr-sm-2" type="text" name="year" placeholder="Input Year Graduated" required>
+		<input class="form-control mr-sm-2" type="text" name="course" placeholder="Input Course Graduated" required>
+		<input class="form-control mr-sm-2" type="text" name="job" placeholder="Input Job" required>
+		<input class="form-control mr-sm-2" type="text" name="employer" placeholder="Input Employer" required>
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Item</button>
 	</form>
 	<b><i>{{ user }}'s Listings:</i></b>
-	{% if all_items %}
+	{% if all_alumni %}
 	<table class='table'>
-	{% for things in all_items %}
+	{% for alumni in all_alumni %}
 		<tr>
-			{% if things.completed %}
-			<td><s>{{ things.item }}</s></td>
-			<td><center><a href="{% url 'unstrike' things.id %}">Unstrike</a></center></td>
-			{% else %}
-			<td>{{ things.item }}</td>
-			<td><center><a href="{% url 'strike' things.id %}">Strike</a></center></td>
-			{% endif %}
-			<td><center><a href="{% url 'delete' things.id %}">Delete</a></center></td>
-			<td><center><a href="{% url 'edit' things.id %}">Edit</a></center></td>
+			<td>{{ alumni.lastName }}, {{ alumni.firstName }}</td>
+			<td><center><a href="{% url 'view_alumni' alumni.id %}">View Alumni</a></center></td>
+			<td><center><a href="{% url 'delete' alumni.id %}">Delete</a></center></td>
+			<td><center><a href="{% url 'edit' alumni.id %}">Edit</a></center></td>
 		</tr>
 	{% endfor %}
 	</table>

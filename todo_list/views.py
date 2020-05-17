@@ -1,59 +1,57 @@
 from django.shortcuts import render, redirect
-from .models import List
-from .forms import ListForm, EditForm
+from .models import AlumniModel
+from .forms import ListAlumni
 
 # Create your views here.
+user = 'rjagonzales'
+my_name = 'Ray James Amer L. Gonzales'
 
 def home(request):
-    return render(request, 'home.html', { 'user': 'rjagonzales' })
-    
+    return render(request, 'home.html', { 'user': user })
+
 def about(request):
-    my_name = 'Ray James Amer L. Gonzales'
     return render(request, 'about.html', { 'myname': my_name })
 
 def contact(request):
-    return render(request, 'contact-us.html', { 'user': 'rjagonzales' })
+    return render(request, 'contact-us.html', { 'user': user })
 
 def listings(request):
     if request.method == 'POST':
-        form = ListForm(request.POST or None)
+        form = ListAlumni(request.POST or None)
         if form.is_valid():
             form.save()
-            all_items = List.objects.all()
-            context = {'all_items': all_items, 'user':'rjagonzales'}
+            all_alumni = AlumniModel.objects.all()
+            context = {'all_alumni': all_alumni, 'user': user }
             return render(request, 'listings.html', context)
     else:
-        all_items = List.objects.all()
-        context = {'all_items': all_items, 'user':'rjagonzales'}
+        all_alumni = AlumniModel.objects.all()
+        context = {'all_alumni': all_alumni, 'user': user}
         return render(request, 'listings.html', context)
 
-def delete(request, list_id):
-    item = List.objects.get(pk = list_id)
+def delete(request, alumniModel_id):
+    item = AlumniModel.objects.get(pk = alumniModel_id)
     item.delete()
     return redirect('listings')
 
-def strike(request, list_id):
-    item = List.objects.get(pk = list_id)
-    item.completed = True
-    item.save()
-    return redirect('listings')
+def view_alumni(request, alumniModel_id):
+    alumni = AlumniModel.objects.get(pk = alumniModel_id)
+    context = {'alumniModel_id': alumniModel_id, 'alumni': alumni }
+    return render(request, 'view_alumni.html', context)
 
-def unstrike(request, list_id):
-    item = List.objects.get(pk = list_id)
-    item.completed = False
-    item.save()
-    return redirect('listings')
-
-def edit(request, list_id):
+def edit(request, alumniModel_id):
     if request.method == 'POST':
-        list_item = List.objects.get(pk = list_id)
-        form = EditForm(request.POST or None)
+        alumni = AlumniModel.objects.get(pk = alumniModel_id)
+        form = ListAlumni(request.POST or None)
         if form.is_valid():
-            updated_item = form.cleaned_data.get('item')
-            list_item.item = updated_item
-            list_item.save()
+            alumni.lastName = form.cleaned_data.get('lastName')
+            alumni.firstName = form.cleaned_data.get('firstName')
+            alumni.gender = form.cleaned_data.get('gender')
+            alumni.year = form.cleaned_data.get('year')
+            alumni.course = form.cleaned_data.get('course')
+            alumni.job = form.cleaned_data.get('job')
+            alumni.employer = form.cleaned_data.get('employer')
+            alumni.save()
             return redirect('listings')
-    else:
-        list_item = List.objects.get(pk = list_id)
-        context = {'list_id': list_id, 'list_item': list_item }
-        return render(request, 'edit.html', context)
+    alumni = AlumniModel.objects.get(pk = alumniModel_id)
+    context = {'alumniModel_id': alumniModel_id, 'alumni': alumni }
+    return render(request, 'edit.html', context)

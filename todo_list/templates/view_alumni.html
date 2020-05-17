@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% url 'view_alumni' %}
+
+{% block content %}
+	<h1>Viewing Alumni: {{ alumni.lastName }}</h1>
+	<table class="my-2 my-lg-0" method="GET">{% csrf_token %}
+	    <tr><th>Name</th><td>{{ alumni.lastName }}, {{ alumni.firstName }}</td><td>Gender: {{ alumni.gender }}</td></tr>
+	    <tr><td>Year Graduated: {{ alumni.year }}</td><td>Course Graduated: {{ alumni.course }}</td></tr>
+	    <tr><td>Current Job: {{ alumni.job }}</td><td>Current Employer: {{ alumni.employer }}</td></tr>
+	</table>
+{% endblock %}

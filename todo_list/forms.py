@@ -1,12 +1,7 @@
 from django import forms
-from .models import List
+from .models import AlumniModel
 
-class ListForm(forms.ModelForm):
+class ListAlumni(forms.ModelForm):
     class Meta:
-        model = List
-        fields = ['item', 'completed']
-
-class EditForm(forms.ModelForm):
-    class Meta:
-        model = List
-        fields = ['item']
+        model = AlumniModel
+        fields = ['lastName', 'firstName', 'gender', 'year', 'course', 'job', 'employer']
