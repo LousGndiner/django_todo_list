@@ -3,10 +3,17 @@
 {% url 'view_alumni' %}
 
 {% block content %}
-	<h1>Viewing Alumni: {{ alumni.lastName }}</h1>
-	<table class="my-2 my-lg-0" method="GET">{% csrf_token %}
-	    <tr><th>Name</th><td>{{ alumni.lastName }}, {{ alumni.firstName }}</td><td>Gender: {{ alumni.gender }}</td></tr>
-	    <tr><td>Year Graduated: {{ alumni.year }}</td><td>Course Graduated: {{ alumni.course }}</td></tr>
-	    <tr><td>Current Job: {{ alumni.job }}</td><td>Current Employer: {{ alumni.employer }}</td></tr>
+<center><div class="card-body" style="width:30rem;">
+	<div class="card-header shadow-lg bg-light">
+		<a class="h2 text-dark">Viewing Alumni: {{ alumni.lastName }}, {{ alumni.firstName }}</a>
+	</div>
+	<table class="table table-striped border border-info table-dark text-white" method="GET">{% csrf_token %}
+	    <tr class="shadow-lg"><th class=" col-5">Name</th><td >{{ alumni.lastName }}, {{ alumni.firstName }}</td></tr>
+		<tr class="shadow-lg"><th >Gender</th><td >{{ alumni.gender }}</td></tr>
+	    <tr class="shadow-lg"><th >Year Graduated</th><td >{{ alumni.year }}</td></tr>
+		<tr class="shadow-lg"><th >Course Graduated</th><td >{{ alumni.course }}</td></tr>
+	    <tr class="shadow-lg"><th >Current Job</th><td >{{ alumni.job }}</td></tr>
+		<tr class="shadow-lg"><th >Current Employer</th><td >{{ alumni.employer }}</td></tr>
 	</table>
+</div></center>
 {% endblock %}
